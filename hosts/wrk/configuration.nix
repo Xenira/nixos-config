@@ -5,10 +5,10 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -23,17 +23,19 @@
         pkgs.yubikey-personalization
       ];
       extraRules = ''
-          ACTION=="remove",\
-           ENV{ID_BUS}=="usb",\
-           ENV{ID_MODEL_ID}=="0407",\
-           ENV{ID_VENDOR_ID}=="1050",\
-           ENV{ID_VENDOR}=="Yubico",\
-           RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
+        ACTION=="remove",\
+         ENV{ID_BUS}=="usb",\
+         ENV{ID_MODEL_ID}=="0407",\
+         ENV{ID_VENDOR_ID}=="1050",\
+         ENV{ID_VENDOR}=="Yubico",\
+         RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
       '';
 
     };
     pcscd.enable = true;
   };
+
+  pi.dev.lang.php.version = "82";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";

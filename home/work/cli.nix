@@ -1,9 +1,16 @@
-{ pkgs, lib, config, secrets, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  secrets,
+  ...
+}:
 
 let
   cfg = config.pi.home.work.cli;
   cmd = secrets.personal.work.company;
-in {
+in
+{
   options.pi.home.work.cli = {
     enable = lib.mkEnableOption "Enable CLI configuration";
     cmd = lib.mkOption {

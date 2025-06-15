@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.pi.programs;
-in {
+in
+{
   options.pi.programs = {
     enable = lib.mkEnableOption "Enable program configurations";
   };

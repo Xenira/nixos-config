@@ -9,34 +9,47 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, nixvim, ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      nixvim,
+      ...
+    }:
     let
       secrets_file = builtins.readFile "${self}/secrets/secrets.toml";
       #secrets_file = builtins.tryEval (builtins.fromTOML (builtins.readFile "${self}/secrets/secrets.toml"));
       secrets = builtins.fromTOML secrets_file;
       special_args = {
-        inherit secrets inputs nixvim self;
-      }; 
-   in {
-    nixosConfigurations = {
-      nixos-wrk = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = special_args;
-        modules = [
-          ./hosts/wrk/configuration.nix
-          home-manager.nixosModules.home-manager
-          ./nix.nix
-        ];
+        inherit
+          secrets
+          inputs
+          nixvim
+          self
+          ;
       };
-      pios = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = special_args;
-        modules = [
-          ./hosts/pi/configuration.nix
-          home-manager.nixosModules.home-manager
-          ./nix.nix
-        ];
+    in
+    {
+      nixosConfigurations = {
+        nixos-wrk = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = special_args;
+          modules = [
+            ./hosts/wrk/configuration.nix
+            home-manager.nixosModules.home-manager
+            ./nix.nix
+          ];
+        };
+        pios = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = special_args;
+          modules = [
+            ./hosts/pi/configuration.nix
+            home-manager.nixosModules.home-manager
+            ./nix.nix
+          ];
+        };
       };
     };
-  };
 }

@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
   options.pi.hypr.waybar = {
@@ -16,11 +21,15 @@
             height = 30;
             spacing = 6;
             modules-left = [ "hyprland/workspaces" ];
-            modules-center = [ "clock" "privacy" ];
+            modules-center = [
+              "clock"
+              "privacy"
+            ];
             modules-right =
               lib.optionals config.pi.home.work.cli.enable [
                 "custom/status"
-              ] ++ [
+              ]
+              ++ [
                 "custom/status"
                 "network"
                 "wireplumber"
@@ -43,7 +52,13 @@
               format-charging = "{capacity}% ";
               format-plugged = "{capacity}% ";
               format-alt = "{time} {icon}";
-              format-icons = ["" "" "" "" ""];
+              format-icons = [
+                ""
+                ""
+                ""
+                ""
+                ""
+              ];
             };
             network = {
               format-wifi = "{essid} ({signalStrength}%) ";
@@ -87,83 +102,83 @@
           }
         ];
         style = ''
-    * {
-      border: none;
-      border-radius: 0;
-      font-family: Roboto, Helvetica, Arial, sans-serif;
-      font-size: 13px;
-      min-height: 0;
-    }
+              * {
+                border: none;
+                border-radius: 0;
+                font-family: Roboto, Helvetica, Arial, sans-serif;
+                font-size: 13px;
+                min-height: 0;
+              }
 
-    window#waybar {
-      background: rgba(43, 48, 59, 0.5);
-      border-bottom: 3px solid rgba(100, 114, 125, 0.5);
-      color: white;
-    }
+              window#waybar {
+                background: rgba(43, 48, 59, 0.5);
+                border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+                color: white;
+              }
 
-    tooltip {
-      background: rgba(43, 48, 59, 0.5);
-      border: 1px solid rgba(100, 114, 125, 0.5);
-    }
+              tooltip {
+                background: rgba(43, 48, 59, 0.5);
+                border: 1px solid rgba(100, 114, 125, 0.5);
+              }
 
-    tooltip label {
-      color: white;
-    }
+              tooltip label {
+                color: white;
+              }
 
-#workspaces button {
-      padding: 0 1rem;
-      background: transparent;
-      color: white;
-      border-bottom: 3px solid transparent;
-    }
+          #workspaces button {
+                padding: 0 1rem;
+                background: transparent;
+                color: white;
+                border-bottom: 3px solid transparent;
+              }
 
-#workspaces button.focused {
-      background: #64727D;
-      border-bottom: 3px solid white;
-    }
+          #workspaces button.focused {
+                background: #64727D;
+                border-bottom: 3px solid white;
+              }
 
-#mode,
-#clock,
-#battery {
-      padding: 0 10px;
-    }
+          #mode,
+          #clock,
+          #battery {
+                padding: 0 10px;
+              }
 
-#mode {
-      background: #64727D;
-      border-bottom: 3px solid white;
-    }
+          #mode {
+                background: #64727D;
+                border-bottom: 3px solid white;
+              }
 
-#clock {
-      background-color: #64727D;
-    }
+          #clock {
+                background-color: #64727D;
+              }
 
-#battery {
-      background-color: #ffffff;
-      color: black;
-    }
+          #battery {
+                background-color: #ffffff;
+                color: black;
+              }
 
-#battery.charging {
-      color: white;
-      background-color: #26A65B;
-    }
+          #battery.charging {
+                color: white;
+                background-color: #26A65B;
+              }
 
-    @keyframes blink {
-      to {
-        background-color: #ffffff;
-        color: black;
-      }
-    }
+              @keyframes blink {
+                to {
+                  background-color: #ffffff;
+                  color: black;
+                }
+              }
 
-#battery.warning:not(.charging) {
-      background: #f53c3c;
-      color: white;
-      animation-name: blink;
-      animation-duration: 0.5s;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      animation-direction: alternate;
-    }
-    '';
+          #battery.warning:not(.charging) {
+                background: #f53c3c;
+                color: white;
+                animation-name: blink;
+                animation-duration: 0.5s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+                animation-direction: alternate;
+              }
+        '';
       };
     };
   };

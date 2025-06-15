@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.pi.shell.tools.sops;
-in {
+in
+{
   options.pi.shell.tools.sops.enable = lib.mkEnableOption "sops";
 
   config = lib.mkIf cfg.enable {

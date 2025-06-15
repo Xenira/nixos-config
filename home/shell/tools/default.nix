@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.pi.shell.tools;
-in {
+in
+{
   options.pi.shell.tools = {
     enable = lib.mkEnableOption "Enable Shell Tools configuration";
   };

@@ -1,9 +1,16 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.pi.nvim.plugins.lsp.rust-analyzer;
-in {
-  options.pi.nvim.plugins.lsp.rust-analyzer.enable = lib.mkEnableOption "Enable TypeScript Language Server";
+in
+{
+  options.pi.nvim.plugins.lsp.rust-analyzer.enable =
+    lib.mkEnableOption "Enable TypeScript Language Server";
 
   config = lib.mkIf cfg.enable {
     home-manager.users.ls = {

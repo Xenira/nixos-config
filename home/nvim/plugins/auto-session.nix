@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.pi.nvim.plugins.auto-session.enable = lib.mkEnableOption "Enables the plugin";

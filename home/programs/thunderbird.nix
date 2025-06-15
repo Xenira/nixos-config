@@ -1,13 +1,21 @@
-{ pkgs, lib, config, secrets, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  secrets,
+  ...
+}:
 
 let
   cfg = config.pi.programs;
   real_name = secrets.personal.first_name + " " + secrets.personal.last_name;
   user_name = lib.toLower (lib.replaceStrings [ " " ] [ "." ] real_name);
-  map_calendar = calendar:
+  map_calendar =
+    calendar:
     let
       safeName = builtins.replaceStrings [ "." ] [ "-" ] calendar.name;
-    in {
+    in
+    {
       "calendar.registry.${safeName}.cache.enabled" = true;
       "calendar.registry.${safeName}.calendar-main-default" = calendar.primary;
       "calendar.registry.${safeName}.calendar-main-in-composite" = calendar.primary;
@@ -18,10 +26,13 @@ let
     };
   cal_settings =
     let
-      cal = map (map_calendar) (builtins.attrValues config.home-manager.users.ls.accounts.calendar.accounts);
+      cal = map (map_calendar) (
+        builtins.attrValues config.home-manager.users.ls.accounts.calendar.accounts
+      );
     in
-      builtins.foldl' lib.recursiveUpdate { } cal;
-in {
+    builtins.foldl' lib.recursiveUpdate { } cal;
+in
+{
   options.pi.programs.thunderbird.enable = lib.mkEnableOption "Enable Thunderbird configuration";
 
   config = lib.mkIf (cfg.enable && cfg.thunderbird.enable) {

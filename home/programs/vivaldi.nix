@@ -1,10 +1,16 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.pi.programs;
   vivaldi_desktop = "vivaldi-stable.desktop";
   is_default = cfg.vivaldi.enable && cfg.vivaldi.default;
-in {
+in
+{
   options.pi.programs.vivaldi = {
     enable = lib.mkEnableOption "Enable Vivaldi browser configuration";
     default = lib.mkOption {
@@ -15,9 +21,11 @@ in {
   };
 
   config = lib.mkIf cfg.vivaldi.enable {
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "vivaldi"
-    ];
+    nixpkgs.config.allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "vivaldi"
+      ];
 
     home-manager.users.ls = lib.mkIf is_default {
       xdg = {
@@ -43,8 +51,8 @@ in {
       ];
 
       home.sessionVariables = lib.mkIf is_default {
-        DEFAULT_BROWSER = "${pkgs.vivaldi}/bin/vivaldi-stable";
-        BROWSER = "${pkgs.vivaldi}/bin/vivaldi-stable";
+        DEFAULT_BROWSER = "${pkgs.vivaldi}/bin/vivaldi";
+        BROWSER = "${pkgs.vivaldi}/bin/vivaldi";
       };
     };
   };

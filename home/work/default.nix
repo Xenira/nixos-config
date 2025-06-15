@@ -2,7 +2,8 @@
 
 let
   cfg = config.pi.work;
-in {
+in
+{
   options.pi.home.work.enable = lib.mkEnableOption "Enable workrelated configuration";
 
   imports = [

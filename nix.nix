@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -7,128 +12,129 @@
   ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
   environment = {
-    systemPackages = with pkgs; let
+    systemPackages =
+      with pkgs;
+      let
         phpm = php82.buildEnv {
           extraConfig = "memory_limit = 4G";
-          extensions = ({ enabled, all }: enabled ++ (with all; [
-            amqp
-            redis
-            mailparse
-            xdebug
-            yaml
-          ]));
+          extensions = (
+            { enabled, all }:
+            enabled
+            ++ (with all; [
+              amqp
+              ds
+              redis
+              mailparse
+              xdebug
+              yaml
+            ])
+          );
         };
-    in [
-      # We always want to have git, as it is needed to rebuild the system.
-      git
+      in
+      [
+        # We always want to have git, as it is needed to rebuild the system.
+        git
 
-      # Old config, needs to be migrated
-      delta
-      convco
-      nmap
-      dive
+        # Old config, needs to be migrated
+        delta
+        convco
+        nmap
+        dive
 
-      bash
-      jq
-      silver-searcher
-      ripgrep
-      wl-clipboard
-      zip
-      unzip
-      tldr
-      lefthook
-      # jujutsu
-      # lazyjj
+        bash
+        jq
+        silver-searcher
+        ripgrep
+        wl-clipboard
+        zip
+        unzip
+        tldr
+        lefthook
+        # jujutsu
+        # lazyjj
 
-      pkg-config
-      openssl
+        pkg-config
+        openssl
 
-      librewolf
-      # firefox
-      chromium
-      bruno
+        librewolf
+        # firefox
+        chromium
+        bruno
 
-      keepassxc
-      obs-studio
-      kdePackages.kdenlive
-      vlc
-      mpv
-      gimp
-      usbimager
-      pavucontrol
+        keepassxc
+        obs-studio
+        kdePackages.kdenlive
+        vlc
+        mpv
+        gimp
+        usbimager
+        pavucontrol
 
-      rustup
-      zig
-      clang
-      libclang
-      gcc
-      gnumake
-      autoconf
-      bison
-      re2c
+        rustup
+        zig
+        clang
+        libclang
+        gcc
+        gnumake
+        autoconf
+        bison
+        re2c
 
-      dart-sass
-      typos
+        dart-sass
+        typos
 
-      go
-      phpm
-      phpm.packages.composer
-      phpm.packages.phpstan
-      phpm.packages.php-cs-fixer
-      # php83Packages.php-cs-fixer
-      # php82Extensions.amqp
-      # php82Extensions.redis
-      # phpactor
-      intelephense
-      python3
-      python3Packages.pip
-      copilot-language-server
-      vscode-langservers-extracted
-      prettierd
-      # lua
-      # luaPackages.luarocks
-      lua51Packages.lua
-      lua51Packages.luarocks
-      stylua
+        go
+        python3
+        python3Packages.pip
+        copilot-language-server
+        vscode-langservers-extracted
+        prettierd
+        # lua
+        # luaPackages.luarocks
+        lua51Packages.lua
+        lua51Packages.luarocks
+        stylua
 
-      fastfetch
-      eza
-      uxplay
-      # avahi
+        fastfetch
+        eza
+        uxplay
+        # avahi
 
-      nnn
-      bat
-      fzf
-      zoxide
+        nnn
+        bat
+        fzf
+        zoxide
 
-      gnome-keyring
-      gcr
+        gnome-keyring
+        gcr
 
-      # Hyprland
-      hyprpicker
-      dunst
-      hyprshot
-      tofi
-      swww
-      networkmanagerapplet
+        # Hyprland
+        hyprpicker
+        dunst
+        hyprshot
+        tofi
+        swww
+        networkmanagerapplet
 
-      xfce.thunar
+        xfce.thunar
 
-      yubioath-flutter
-      qMasterPassword-wayland
-      showmethekey
+        yubioath-flutter
+        qMasterPassword-wayland
+        showmethekey
 
-      presenterm
-      mermaid-cli
-      dconf
-    ];
+        presenterm
+        mermaid-cli
+        dconf
+      ];
     variables = {
-      PKG_CONFIG_PATH="${pkgs.openssl.dev}/lib/pkgconfig";
+      PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
     };
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   hardware = lib.mkIf config.pi.desktop.enable {
     bluetooth = {
@@ -147,8 +153,13 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ls = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout"];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "dialout"
+    ];
+    packages = with pkgs; [ ];
   };
 
   # Enable networking
@@ -218,10 +229,12 @@
     setSocketVariable = true;
   };
 
-  swapDevices = [ {
-    device = "/var/lib/swapfile";
-    size = 16*1024;
-  } ];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
 
   nix.gc = {
     automatic = !config.pi.shell.tools.nh.enable;

@@ -1,5 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
+let
+  cfg = config.pi.dev.lang;
+in
 {
   options.pi.dev.lang = {
     enable = lib.mkEnableOption "Enable Language configuration";
@@ -7,9 +15,13 @@
 
   imports = [
     ./node.nix
+    ./php.nix
   ];
 
-  config = lib.mkIf config.pi.dev.lang.enable {
-    pi.dev.lang.node.enable = lib.mkDefault config.pi.dev.lang.enable;
+  config = lib.mkIf cfg.enable {
+    pi.dev.lang = {
+      node.enable = lib.mkDefault cfg.enable;
+      php.enable = lib.mkDefault cfg.enable;
+    };
   };
 }

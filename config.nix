@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.pi;
-in {
+in
+{
   options.pi = {
     work.enable = lib.mkEnableOption "Enable work configuration";
     desktop.enable = lib.mkEnableOption "Enable desktop configuration";

@@ -1,7 +1,21 @@
-{ pkgs, lib, config, secrets, self, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  secrets,
+  self,
+  ...
+}:
 
 let
-  updateCmd = "rustup update && echo 'Updating NixOS...' " + (if config.pi.shell.tools.nh.enable then " && nh os switch ~/.config/nix --ask --update" else "&& nix flake update ~/.config/nix && sudo nixos-rebuild switch --flake ~/.config/nix");
+  updateCmd =
+    "rustup update && echo 'Updating NixOS...' "
+    + (
+      if config.pi.shell.tools.nh.enable then
+        " && nh os switch ~/.config/nix --ask --update"
+      else
+        "&& nix flake update ~/.config/nix && sudo nixos-rebuild switch --flake ~/.config/nix"
+    );
 in
 {
   options.pi.shell.zsh = {
@@ -60,7 +74,13 @@ in
           zplug = {
             enable = true;
             plugins = [
-              { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
+              {
+                name = "romkatv/powerlevel10k";
+                tags = [
+                  "as:theme"
+                  "depth:1"
+                ];
+              }
             ];
           };
 
@@ -75,13 +95,15 @@ in
               export XCURSOR_THEME="catppuccin-mocha-dark-cursors"
               export XCURSOR_SIZE=24
               export NODE_OPTIONS=--max-old-space-size=8192
-              export BROWSER="${pkgs.vivaldi}/bin/vivaldi-stable";
+              export BROWSER="${pkgs.vivaldi}/bin/vivaldi";
               dconf write /org/gnome/desktop/interface/cursor-theme "'$XCURSOR_THEME'"
               bindkey "''${key[Up]}" history-substring-search-up
               bindkey "''${key[Down]}" history-substring-search-down
               source ${./.p10k.zsh}
               fastfetch
-              ${if config.pi.home.work.cli.enable then (config.pi.home.work.cli.cmd + " --non-interactive status") else ""}
+            ''
+            + lib.optionalString config.pi.home.work.cli.enable ''
+              ${config.pi.home.work.cli.cmd} --non-interactive status
             '';
         };
 

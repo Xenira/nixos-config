@@ -1,8 +1,14 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.pi.hypr.hypridle;
-in {
+in
+{
   options.pi.hypr.hypridle = {
     enable = lib.mkEnableOption "Enable Hypridle configuration";
     timeout = lib.mkOption {

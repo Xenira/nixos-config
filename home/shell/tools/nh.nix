@@ -1,4 +1,9 @@
-{ pkg, lib, config, ... }:
+{
+  pkg,
+  lib,
+  config,
+  ...
+}:
 
 {
   options.pi.shell.tools.nh = {

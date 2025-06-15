@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.pi.programs.peazip = {
@@ -13,7 +18,10 @@
       xdg = {
         mimeApps = {
           associations.added = {
-            "application/zip" = ["peazip.desktop" "peazip-extract-here.desktop"];
+            "application/zip" = [
+              "peazip.desktop"
+              "peazip-extract-here.desktop"
+            ];
             "application/x-compressed-tar" = "peazip.desktop";
           };
         };

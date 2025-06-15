@@ -1,4 +1,10 @@
-{ config, lib, pkgs, nixvim, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  nixvim,
+  ...
+}:
 
 {
   options.pi.nvim.enable = lib.mkEnableOption "Enable Neovim Configuration";
