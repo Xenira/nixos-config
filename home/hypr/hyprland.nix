@@ -8,6 +8,7 @@ in {
   };
 
   config = lib.mkIf cfg.hypr.hyprland.enable {
+    programs.hyprland.enable = true;
     home-manager.users.ls = {
       home.sessionVariables.NIXOS_OZONE_WL = "1";
 
