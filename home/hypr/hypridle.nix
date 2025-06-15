@@ -1,11 +1,18 @@
 { pkgs, lib, config, ... }:
 
-{
+let
+  cfg = config.pi.hypr.hypridle;
+in {
   options.pi.hypr.hypridle = {
     enable = lib.mkEnableOption "Enable Hypridle configuration";
+    timeout = lib.mkOption {
+      type = lib.types.int;
+      default = 300;
+      description = "Sets the time in seconds until the screen is locked";
+    };
   };
 
-  config = lib.mkIf config.pi.hypr.hypridle.enable {
+  config = lib.mkIf cfg.enable {
     home-manager.users.ls = {
       services.hypridle = {
         enable = true;
@@ -19,16 +26,16 @@
 
           listener = [
             {
-              timeout = 200;
+              timeout = cfg.timeout - 30;
               on-timeout = "brightnessctl -s set 10";
               on-resume = "brightnessctl -r";
             }
             {
-              timeout = 300;
+              timeout = cfg.timeout;
               on-timeout = "loginctl lock-session";
             }
             {
-              timeout = 330;
+              timeout = cfg.timeout + 30;
               on-timeout = "hyprctl dispatch dpms off";
               on-resume = "hyprctl dispatch dpms on";
             }

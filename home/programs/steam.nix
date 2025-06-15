@@ -6,8 +6,6 @@ in {
   options.pi.programs.steam.enable = lib.mkEnableOption "Enable Steam configuration";
 
   config = lib.mkIf cfg.enable {
-    users.users.ls.packages = with pkgs; [
-      steam
-    ];
+    programs.steam.enable = true;
   };
 }

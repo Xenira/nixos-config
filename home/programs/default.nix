@@ -19,6 +19,7 @@ in {
     pi.programs = {
       nheko.enable = lib.mkDefault config.pi.programs.enable;
       peazip.enable = lib.mkDefault config.pi.programs.enable;
+      steam.enable = lib.mkDefault (cfg.enable && !config.pi.work.enable);
       thunderbird.enable = lib.mkDefault config.pi.programs.enable;
       vivaldi.enable = lib.mkDefault config.pi.programs.enable;
     };

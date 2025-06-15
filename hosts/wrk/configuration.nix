@@ -16,6 +16,25 @@
 
   networking.hostName = "nixos-wrk"; # Define your hostname.
 
+  services = {
+    # Yubikey
+    udev = {
+      packages = [
+        pkgs.yubikey-personalization
+      ];
+      extraRules = ''
+          ACTION=="remove",\
+           ENV{ID_BUS}=="usb",\
+           ENV{ID_MODEL_ID}=="0407",\
+           ENV{ID_VENDOR_ID}=="1050",\
+           ENV{ID_VENDOR}=="Yubico",\
+           RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
+      '';
+
+    };
+    pcscd.enable = true;
+  };
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
