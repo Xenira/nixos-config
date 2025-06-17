@@ -24,8 +24,8 @@ let
         userEmail = "1288524+Xenira@users.noreply.github.com";
 
         signing = {
-          key = "6EF3F94BCA9A46C5";
-          format = "openpgp";
+          key = "~/.ssh/id_ed25519";
+          format = "ssh";
         };
       };
 in

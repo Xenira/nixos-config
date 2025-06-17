@@ -164,6 +164,7 @@
       "wheel"
       "docker"
       "dialout"
+      "audio"
     ];
     packages = with pkgs; [ ];
   };
@@ -211,6 +212,7 @@
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
+      pulse.enable = true;
       # jack.enable = true;
     };
     blueman.enable = true;
