@@ -40,7 +40,7 @@
               valign = "center";
             }
             {
-              text = "cmd[update:1000] echo $PAMFAIL";
+              text = "cmd[update:1000] echo \"$PAMPROMPT $PAMFAIL\"";
               font_size = 20;
               halign = "center";
               valign = "bottom";

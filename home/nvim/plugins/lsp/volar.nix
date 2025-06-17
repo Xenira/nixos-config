@@ -5,10 +5,13 @@
   ...
 }:
 
+let
+  cfg = config.pi.nvim.plugins.lsp.volar;
+in
 {
   options.pi.nvim.plugins.lsp.volar.enable = lib.mkEnableOption "Enable Volar LSP Plugin";
 
-  config = lib.mkIf config.pi.nvim.plugins.lsp.volar.enable {
+  config = lib.mkIf cfg.enable {
     home-manager.users.ls = {
       programs.nixvim.plugins.lsp = {
         servers = {

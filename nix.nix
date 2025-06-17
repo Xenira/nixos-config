@@ -98,7 +98,6 @@
         fastfetch
         eza
         uxplay
-        # avahi
 
         nnn
         bat
@@ -143,11 +142,18 @@
     };
   };
 
-  security.rtkit.enable = true;
-  security.polkit.enable = true;
-  security.pam.services = {
-    login.u2fAuth = true;
-    sudo.u2fAuth = true;
+  security = {
+    pam = {
+      services = {
+        login.u2fAuth = true;
+        sudo.u2fAuth = true;
+      };
+      u2f.settings = {
+        cue = true;
+      };
+    };
+    rtkit.enable = true;
+    polkit.enable = true;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -184,6 +190,23 @@
   };
 
   services = {
+    udev = {
+      packages = with pkgs; [
+        yubikey-personalization
+        libu2f-host
+      ];
+      extraRules = ''
+        ACTION=="remove",\
+         ENV{ID_BUS}=="usb",\
+         ENV{ID_MODEL_ID}=="0407",\
+         ENV{ID_VENDOR_ID}=="1050",\
+         ENV{ID_VENDOR}=="Yubico",\
+         RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
+      '';
+
+    };
+    pcscd.enable = true;
+
     pipewire = {
       enable = true;
       alsa.enable = true;

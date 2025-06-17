@@ -7,7 +7,7 @@
 }:
 
 let
-  cfg = config.pi.programs;
+  cfg = config.pi.programs.thunderbird;
   real_name = secrets.personal.first_name + " " + secrets.personal.last_name;
   user_name = lib.toLower (lib.replaceStrings [ " " ] [ "." ] real_name);
   map_calendar =
@@ -35,7 +35,7 @@ in
 {
   options.pi.programs.thunderbird.enable = lib.mkEnableOption "Enable Thunderbird configuration";
 
-  config = lib.mkIf (cfg.enable && cfg.thunderbird.enable) {
+  config = lib.mkIf cfg.enable {
     home-manager.users.ls = {
       programs.thunderbird = {
         enable = true;
@@ -51,7 +51,7 @@ in
 
         settings = {
           "privacy.donottrackheader.enabled" = true;
-        } // cal_settings;
+        };
       };
 
       xdg = {
@@ -88,11 +88,39 @@ in
         };
 
         calendar.accounts = {
-          "${real_name}" = {
+          "${real_name} (wrk)" = {
             primary = true;
             remote = {
               userName = user_name;
-              url = "https://" + secrets.personal.work.vm + "/caldav/" + user_name + "/calendar";
+              url = "https://" + secrets.personal.work.host + "/caldav/" + user_name + "/home/";
+              type = "caldav";
+            };
+            thunderbird = {
+              enable = true;
+              profiles = [
+                "personal"
+                "work"
+              ];
+            };
+          };
+          "PB:GK (wrk)" = {
+            primary = false;
+            remote = {
+              userName = user_name;
+              url =
+                "https://"
+                + secrets.personal.work.host
+                + "/caldav/"
+                + secrets.personal.work.company
+                + ".entwicklung.pb.gk/calendar/";
+              type = "caldav";
+            };
+            thunderbird = {
+              enable = true;
+              profiles = [
+                "personal"
+                "work"
+              ];
             };
           };
         };

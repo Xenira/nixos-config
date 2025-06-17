@@ -95,15 +95,21 @@ in
               export XCURSOR_THEME="catppuccin-mocha-dark-cursors"
               export XCURSOR_SIZE=24
               export NODE_OPTIONS=--max-old-space-size=8192
+            ''
+            + lib.optionalString config.pi.programs.vivaldi.enable ''
               export BROWSER="${pkgs.vivaldi}/bin/vivaldi";
+            ''
+            + ''
               dconf write /org/gnome/desktop/interface/cursor-theme "'$XCURSOR_THEME'"
               bindkey "''${key[Up]}" history-substring-search-up
               bindkey "''${key[Down]}" history-substring-search-down
               source ${./.p10k.zsh}
-              fastfetch
+            ''
+            + lib.optionalString config.pi.shell.tools.fastfetch.enable ''
+              ${pkgs.fastfetch}/bin/fastfetch
             ''
             + lib.optionalString config.pi.home.work.cli.enable ''
-              ${config.pi.home.work.cli.cmd} --non-interactive status
+              ${config.pi.home.work.cli.cmd} --non-interactive status || true
             '';
         };
 

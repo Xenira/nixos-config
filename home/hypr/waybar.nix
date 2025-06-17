@@ -30,7 +30,6 @@
                 "custom/status"
               ]
               ++ [
-                "custom/status"
                 "network"
                 "wireplumber"
                 "battery"
