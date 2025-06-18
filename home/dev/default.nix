@@ -12,12 +12,14 @@
 
   imports = [
     ./lang
+    ./tools
     ./direnv.nix
   ];
 
   config = lib.mkIf config.pi.dev.enable {
     pi.dev = {
       lang.enable = lib.mkDefault config.pi.dev.enable;
+      tools.enable = lib.mkDefault config.pi.dev.enable;
       direnv.enable = lib.mkDefault config.pi.dev.enable;
     };
   };
