@@ -69,6 +69,8 @@ in
 
             ssh_dev = lib.mkIf config.pi.work.enable ("ssh -R 9009:localhost:9009 " + secrets.personal.work.vm);
             sshk = lib.mkIf config.pi.shell.kitty.enable "kitty +kitten ssh";
+            use_nix = ''echo "use nix" >> .envrc'';
+            use_flake = ''echo "use flake" >> .envrc'';
           };
 
           zplug = {

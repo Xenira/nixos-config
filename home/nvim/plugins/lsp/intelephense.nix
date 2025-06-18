@@ -50,6 +50,7 @@
                   "json"
                   "ldap"
                   "libxml"
+                  "mailparse"
                   "mbstring"
                   "meta"
                   "mysqli"

@@ -10,7 +10,10 @@
     ./config.nix
     ./home
   ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    tmp.useTmpfs = true;
+  };
   environment = {
     systemPackages =
       with pkgs;
