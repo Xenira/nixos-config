@@ -19,10 +19,10 @@ in
     pi = {
       work.enable = lib.mkDefault true;
       server.enable = lib.mkDefault false;
-      desktop.enable = lib.mkDefault (!config.pi.server.enable);
-      home.work.enable = lib.mkDefault config.pi.work.enable;
-      programs.enable = lib.mkDefault config.pi.desktop.enable;
-      hypr.enable = lib.mkDefault config.pi.desktop.enable;
+      desktop.enable = lib.mkDefault (!cfg.server.enable);
+      home.work.enable = lib.mkDefault cfg.work.enable;
+      programs.enable = lib.mkDefault cfg.desktop.enable;
+      hypr.enable = lib.mkDefault cfg.desktop.enable;
       nvim.enable = lib.mkDefault true;
       git.enable = lib.mkDefault true;
       dev.enable = lib.mkDefault true;

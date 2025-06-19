@@ -12,6 +12,7 @@ in
   options.pi.nvim.plugins.lsp.enable = lib.mkEnableOption "Enable LSP Plugins";
   imports = [
     ./intelephense.nix
+    ./nixd.nix
     ./ts-ls.nix
     ./typos-lsp.nix
     ./volar.nix
@@ -20,6 +21,7 @@ in
   config = lib.mkIf cfg.enable {
     pi.nvim.plugins.lsp = {
       intelephense.enable = lib.mkDefault cfg.enable;
+      nixd.enable = lib.mkDefault cfg.enable;
       ts-ls.enable = lib.mkDefault cfg.enable;
       typos-lsp.enable = lib.mkDefault cfg.enable;
       volar.enable = lib.mkDefault cfg.enable;
