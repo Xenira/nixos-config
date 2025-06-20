@@ -34,6 +34,7 @@
     ./lspkind.nix
     ./markdown-preview.nix
     ./neogit.nix
+    ./neotest.nix
     ./nix.nix
     ./nvim-surround.nix
     ./nvim-tree.nix
@@ -74,6 +75,7 @@
       lspkind.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       markdown-preview.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       neogit.enable = lib.mkDefault config.pi.nvim.plugins.enable;
+      neotest.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       nix.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       nvim-surround.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       nvim-tree.enable = lib.mkDefault config.pi.nvim.plugins.enable;

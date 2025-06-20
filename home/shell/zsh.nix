@@ -94,6 +94,12 @@ in
 
           initContent =
             ''
+              autoload -U add-zsh-hook
+              ls_after_cd() {
+                ll --color=always
+              }
+              add-zsh-hook chpwd ls_after_cd
+
               export XCURSOR_THEME="catppuccin-mocha-dark-cursors"
               export XCURSOR_SIZE=24
               export NODE_OPTIONS=--max-old-space-size=8192
