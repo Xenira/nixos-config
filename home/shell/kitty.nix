@@ -35,5 +35,7 @@
         themeFile = "Catppuccin-Mocha";
       };
     };
+
+    environment.pathsToLink = [ "/share/zsh" ];
   };
 }

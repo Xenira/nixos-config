@@ -20,6 +20,14 @@
             "text/plain" = "gvim.desktop";
           };
         };
+        userDirs = {
+          enable = true;
+          createDirectories = true;
+          desktop = null;
+          publicShare = null;
+          templates = null;
+        };
+        autostart.readOnly = true;
       };
     };
   };

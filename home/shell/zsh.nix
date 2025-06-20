@@ -108,8 +108,6 @@ in
             ''
             + ''
               dconf write /org/gnome/desktop/interface/cursor-theme "'$XCURSOR_THEME'"
-              bindkey "''${key[Up]}" history-substring-search-up
-              bindkey "''${key[Down]}" history-substring-search-down
               source ${./.p10k.zsh}
             ''
             + lib.optionalString config.pi.shell.tools.fastfetch.enable ''
