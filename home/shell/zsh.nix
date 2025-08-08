@@ -12,7 +12,7 @@ let
     "rustup update && echo 'Updating NixOS...' "
     + (
       if config.pi.shell.tools.nh.enable then
-        " && nh os switch ~/.config/nix --ask --update"
+        "&& nh os switch ~/.config/nix --ask --update"
       else
         "&& nix flake update ~/.config/nix && sudo nixos-rebuild switch --flake ~/.config/nix"
     );
@@ -61,16 +61,15 @@ in
             vi = "nvim";
 
             update = updateCmd;
-            # update = "rustup update && echo 'Updating NixOS...' && sudo nix-channel --update && sudo nixos-rebuild switch && sudo nix-collect-garbage --delete-older-than 30d";
 
             ll = "eza -laag --hyperlink --icons --git --time-style relative --group-directories-first";
 
             amend = "git commit --amend --no-edit && git push --force-with-lease";
 
-            ssh_dev = lib.mkIf config.pi.work.enable ("ssh -R 9009:localhost:9009 " + secrets.personal.work.vm);
             sshk = lib.mkIf config.pi.shell.kitty.enable "kitty +kitten ssh";
             use_nix = ''echo "use nix" >> .envrc'';
             use_flake = ''echo "use flake" >> .envrc'';
+            flashbang = "cat /sys/class/backlight/amdgpu_bl1/max_brightness > /sys/class/backlight/amdgpu_bl1/brightness";
           };
 
           zplug = {

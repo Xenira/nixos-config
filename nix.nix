@@ -89,8 +89,6 @@
         go
         python3
         python3Packages.pip
-        copilot-language-server
-        vscode-langservers-extracted
         prettierd
         # lua
         # luaPackages.luarocks
@@ -107,7 +105,7 @@
         fzf
         zoxide
 
-        gnome-keyring
+        # gnome keyring system prompt
         gcr
 
         # Hyprland
@@ -252,9 +250,21 @@
     '';
   };
 
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
+  virtualisation.docker = {
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+      daemon.settings = lib.mkIf config.pi.work.enable {
+        bip = "192.18.0.1/24";
+        default-address-pools = [
+          {
+            base = "192.18.0.1/16";
+            size = 24;
+          }
+        ];
+      };
+    };
+
   };
 
   swapDevices = [

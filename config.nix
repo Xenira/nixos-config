@@ -25,6 +25,7 @@ in
       hypr.enable = lib.mkDefault cfg.desktop.enable;
       nvim.enable = lib.mkDefault true;
       git.enable = lib.mkDefault true;
+      ssh.enable = lib.mkDefault true;
       dev.enable = lib.mkDefault true;
       xdg.enable = lib.mkDefault true;
       shell.enable = lib.mkDefault true;

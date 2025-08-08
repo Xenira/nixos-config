@@ -7,6 +7,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    niri.url = "github:sodiboo/niri-flake";
   };
 
   outputs =
@@ -15,6 +16,7 @@
       nixpkgs,
       home-manager,
       nixvim,
+      niri,
       ...
     }:
     let
@@ -26,6 +28,7 @@
           secrets
           inputs
           nixvim
+          niri
           self
           ;
       };
@@ -38,6 +41,7 @@
           modules = [
             ./hosts/wrk/configuration.nix
             home-manager.nixosModules.home-manager
+            niri.nixosModules.niri
             ./nix.nix
           ];
         };
@@ -47,6 +51,7 @@
           modules = [
             ./hosts/pi/configuration.nix
             home-manager.nixosModules.home-manager
+            niri.nixosModules.niri
             ./nix.nix
           ];
         };

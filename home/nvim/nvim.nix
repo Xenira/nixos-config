@@ -51,8 +51,9 @@ in
   config = lib.mkIf config.pi.nvim.enable {
     pi.nvim.plugins.enable = true;
 
-    users.users.ls.packages = [
-      pkgs.nixfmt-rfc-style
+    users.users.ls.packages = with pkgs; [
+      nixfmt-rfc-style
+      asciidoctor-with-extensions
     ];
 
     home-manager.users.ls = {
@@ -171,7 +172,7 @@ in
           formatter-nvim
           # nvim-lsp-file-operations
           (fromGitHub "main" "chrisgrieser" "nvim-lsp-endhints"
-            "sha256-TXtNf6l+WIT0A0/SgL69DmA9EqQfmLtc4echMUopgWk="
+            "sha256-ZssCVWm7/4U7oAsEXB1JgLoSzcdAjXsO2wEDyS40/SQ="
           )
           (fromGitHub "master" "kenn7" "vim-arsync" "sha256-OQ5XDFyyiAD9Oqxv9+x1hMNH4LscKiLzBapmB4ZvOw4=")
           (fromGitHub "master" "prabirshrestha" "async.vim"
@@ -244,6 +245,30 @@ in
               ["*"] = { require("formatter.filetypes.any").remove_trailing_whitespace },
             },
           })
+
+          vim.treesitter.query.set("php", "highlights", [[; extends
+            (member_call_expression
+              name: (name) @fnName (#match? @fnName "^addSql$")
+              arguments: (arguments
+                (argument
+                  (string) @string (#set! "priority" 90)
+                )
+              )
+            )
+          ]])
+          vim.treesitter.query.set("php", "injections", [[
+            (member_call_expression
+              name: (name) @fnName (#match? @fnName "^addSql$")
+              arguments: (arguments
+                (argument
+                  (string [(string_content)] @injection.content
+                    (#set! injection.language "sql")
+                    (#set! injection.combined)
+                  )
+                )
+              )
+            )
+          ]])
         '';
       };
     };

@@ -73,6 +73,10 @@ in
               host = secrets.personal.work.host;
               port = 993;
             };
+            smtp = {
+              host = secrets.personal.work.host;
+              port = 465;
+            };
             userName = user_name;
           };
           vm = {

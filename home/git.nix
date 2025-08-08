@@ -24,7 +24,7 @@ let
         userEmail = "1288524+Xenira@users.noreply.github.com";
 
         signing = {
-          key = "~/.ssh/id_ed25519";
+          key = "~/.ssh/github_sign_id_ed25519";
           format = "ssh";
         };
       };
@@ -63,6 +63,18 @@ in
           enable = true;
           settings = {
             git_protocol = "ssh";
+          };
+        };
+        ssh.matchBlocks = {
+          "github.com" = {
+            hostname = "github.com";
+            user = "git";
+            identityFile = "~/.ssh/github_id_ed25519";
+          };
+          "${secrets.personal.work.git_host}" = lib.mkIf config.pi.work.enable {
+            hostname = secrets.personal.work.git_host;
+            user = "git";
+            identityFile = "~/.ssh/gitlab2025_id_ed25519";
           };
         };
       };

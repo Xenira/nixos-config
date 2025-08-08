@@ -13,6 +13,7 @@ in
   imports = [
     ./intelephense.nix
     ./nixd.nix
+    ./sqls.nix
     ./ts-ls.nix
     ./typos-lsp.nix
     ./volar.nix
@@ -22,6 +23,7 @@ in
     pi.nvim.plugins.lsp = {
       intelephense.enable = lib.mkDefault cfg.enable;
       nixd.enable = lib.mkDefault cfg.enable;
+      sqls.enable = lib.mkDefault cfg.enable;
       ts-ls.enable = lib.mkDefault cfg.enable;
       typos-lsp.enable = lib.mkDefault cfg.enable;
       volar.enable = lib.mkDefault cfg.enable;

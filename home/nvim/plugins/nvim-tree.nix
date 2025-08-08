@@ -13,24 +13,26 @@
       programs.nixvim = {
         plugins.nvim-tree = {
           enable = true;
-          openOnSetup = true;
-          sortBy = "case_sensitive";
-          view = {
-            width = 30;
+          settings = {
+            view = {
+              width = 30;
+            };
+            renderer = {
+              groupEmpty = true;
+            };
+            filters = {
+              dotfiles = true;
+            };
+            diagnostics = {
+              enable = true;
+              showOnDirs = true;
+            };
+            openOnSetup = true;
+            sortBy = "case_sensitive";
+            updateFocusedFile.enable = true;
+            modified.enable = true;
+            reloadOnBufenter = true;
           };
-          renderer = {
-            groupEmpty = true;
-          };
-          filters = {
-            dotfiles = true;
-          };
-          updateFocusedFile.enable = true;
-          diagnostics = {
-            enable = true;
-            showOnDirs = true;
-          };
-          modified.enable = true;
-          reloadOnBufenter = true;
         };
         keymaps = [
           {

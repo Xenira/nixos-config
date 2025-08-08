@@ -9,6 +9,11 @@
   options.pi.nvim.plugins.treesitter.enable = lib.mkEnableOption "Enable Plugin";
 
   config = lib.mkIf config.pi.nvim.plugins.treesitter.enable {
+    users.users.ls = {
+      packages = with pkgs; [
+        tree-sitter
+      ];
+    };
     home-manager.users.ls = {
       programs.nixvim.plugins.treesitter = {
         enable = true;

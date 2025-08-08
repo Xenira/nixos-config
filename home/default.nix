@@ -4,11 +4,13 @@
   imports = [
     ./dev
     ./hypr
+    ./niri
     ./work
     ./programs
     ./nvim
     ./shell
     ./git.nix
+    ./ssh.nix
     ./xdg.nix
   ];
 
