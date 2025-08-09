@@ -15,7 +15,9 @@ in
 
   config = lib.mkIf cfg.enable {
     users.users.ls = {
-      packages = [ pkgs.dig ];
+      packages = with pkgs; [
+        dig
+      ];
     };
   };
 }

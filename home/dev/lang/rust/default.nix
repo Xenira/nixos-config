@@ -13,12 +13,13 @@ in
     enable = lib.mkEnableOption "Enable Rust development environment";
   };
 
+  imports = [
+    ./tools
+  ];
+
   config = lib.mkIf cfg.enable {
-    home-manager.users.ls = {
-      programs.ruff = {
-        enable = true;
-        settings = { };
-      };
+    pi.dev.lang.rust = {
+      tools.enable = lib.mkDefault cfg.enable;
     };
   };
 }

@@ -172,7 +172,7 @@ in
           formatter-nvim
           # nvim-lsp-file-operations
           (fromGitHub "main" "chrisgrieser" "nvim-lsp-endhints"
-            "sha256-ZssCVWm7/4U7oAsEXB1JgLoSzcdAjXsO2wEDyS40/SQ="
+            "sha256-MgvZqaYbJWmcjIYJM0hCfnIVc+uKE0vk3Ky6PWFYpys="
           )
           (fromGitHub "master" "kenn7" "vim-arsync" "sha256-OQ5XDFyyiAD9Oqxv9+x1hMNH4LscKiLzBapmB4ZvOw4=")
           (fromGitHub "master" "prabirshrestha" "async.vim"

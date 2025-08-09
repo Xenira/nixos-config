@@ -20,6 +20,9 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
+    # TODO:
+    # - bashls
+    # - biome
     pi.nvim.plugins.lsp = {
       intelephense.enable = lib.mkDefault cfg.enable;
       nixd.enable = lib.mkDefault cfg.enable;
@@ -32,6 +35,8 @@ in
     home-manager.users.ls = {
       programs.nixvim.plugins.lsp = {
         enable = true;
+        inlayHints = true;
+
         keymaps.extra =
           [
             {

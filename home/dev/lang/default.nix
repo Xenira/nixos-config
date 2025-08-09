@@ -14,9 +14,9 @@ in
   };
 
   imports = [
+    ./rust
     ./node.nix
     ./php.nix
-    ./rust.nix
   ];
 
   config = lib.mkIf cfg.enable {

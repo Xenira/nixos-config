@@ -11,7 +11,6 @@
   ];
 
   pi.work.enable = false;
-  pi.nvim.plugins.copilot-lua.enable = false;
   pi.hypr.hypridle.timeout = 600;
 
   # nvidia
