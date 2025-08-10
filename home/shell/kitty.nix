@@ -20,6 +20,7 @@
           package = pkgs.nerd-fonts.fira-code;
         };
         settings = {
+          include = lib.mkIf (config.pi.shell.tools.wallust.enable) "~/.config/wallust/templates/kitty.conf";
           enable_audio_bell = false;
           disable_ligatures = "never";
           tab_powerline_style = "slanted";
@@ -32,7 +33,7 @@
 
           scrollback_lines = 50000;
         };
-        themeFile = "Catppuccin-Mocha";
+        themeFile = lib.mkIf (!config.pi.shell.tools.wallust.enable) "Catppuccin-Mocha";
       };
     };
 

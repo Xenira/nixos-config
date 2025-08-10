@@ -19,6 +19,38 @@ in
     home-manager.users.ls = {
       home.sessionVariables.NIXOS_OZONE_WL = "1";
       services.swww.enable = true;
+      systemd.user = {
+        services.background-img = {
+          Unit = {
+            Description = "Set background image";
+            After = [ "network.target" ];
+          };
+          Service = {
+            Type = "oneshot";
+            ExecStart = toString (
+              pkgs.writeShellScript "set-background" ''
+                #!/bin/bash
+                set -e
+
+                IMAGE="$(ls ~/Pictures/Wallpapers | shuf -n 1)"
+                swww img ~/Pictures/Wallpapers/$IMAGE
+                wallust run ~/Pictures/Wallpapers/$IMAGE
+              ''
+            );
+          };
+          Install.WantedBy = [ "default.target" ];
+        };
+        timers.background-img = {
+          Unit = {
+            Description = "Run background image service every 15 minutes";
+          };
+          Timer = {
+            OnBootSec = "15min";
+            OnUnitActiveSec = "15min";
+          };
+          Install.WantedBy = [ "timers.target" ];
+        };
+      };
 
       wayland.windowManager.hyprland = {
         enable = true;
@@ -28,6 +60,7 @@ in
           enableXdgAutostart = true;
         };
         settings = {
+          source = lib.mkIf (config.pi.shell.tools.wallust.enable) "~/.config/wallust/templates/hyprland.conf";
           monitor = [
             ",preferred,auto,auto"
             "eDP-1,preferred,0x0,1"
@@ -37,6 +70,9 @@ in
             "float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
             "opacity 0.75 override 0.75 override,class:.*"
             "noblur,focus:0,class:.*"
+          ];
+          exec = [
+            "pkill waybar; waybar &"
           ];
           exec-once = [
             "dunst"
@@ -65,11 +101,11 @@ in
           };
 
           general = {
-            gaps_in = 4;
-            gaps_out = 16;
-            border_size = 2;
-            "col.active_border" = "0xFFFFECFD";
-            "col.inactive_border" = "0xFFEDFDFF";
+            gaps_in = 2;
+            gaps_out = 8;
+            border_size = 3;
+            "col.active_border" = lib.mkIf (!config.pi.shell.tools.wallust.enable) "0xFFFFECFD";
+            "col.inactive_border" = lib.mkIf (!config.pi.shell.tools.wallust.enable) "0xFFEDFDFF";
 
             layout = "dwindle";
           };
@@ -90,8 +126,8 @@ in
               range = 30;
               render_power = 2;
               ignore_window = 1;
-              color = "0xFFAD0DED";
-              color_inactive = "0xFF3292F3";
+              color = lib.mkIf (!config.pi.shell.tools.wallust.enable) "0xFFAD0DED";
+              color_inactive = lib.mkIf (!config.pi.shell.tools.wallust.enable) "0xFF3292F3";
             };
           };
 

@@ -91,31 +91,33 @@ in
             findNoDups = true;
           };
 
-          initContent =
-            ''
-              autoload -U add-zsh-hook
-              ls_after_cd() {
-                ll --color=always
-              }
-              add-zsh-hook chpwd ls_after_cd
+          initContent = ''
+            kill -SIGUSR1 $KITTY_PID
+            autoload -U add-zsh-hook
+            ls_after_cd() {
+              ll --color=always
+            }
+            add-zsh-hook chpwd ls_after_cd
 
-              export XCURSOR_THEME="catppuccin-mocha-dark-cursors"
-              export XCURSOR_SIZE=24
-              export NODE_OPTIONS=--max-old-space-size=8192
-            ''
-            + lib.optionalString config.pi.programs.vivaldi.enable ''
-              export BROWSER="${pkgs.vivaldi}/bin/vivaldi";
-            ''
-            + ''
-              dconf write /org/gnome/desktop/interface/cursor-theme "'$XCURSOR_THEME'"
-              source ${./.p10k.zsh}
-            ''
-            + lib.optionalString config.pi.shell.tools.fastfetch.enable ''
-              ${pkgs.fastfetch}/bin/fastfetch
-            ''
-            + lib.optionalString config.pi.home.work.cli.enable ''
-              ${config.pi.home.work.cli.cmd} --non-interactive status || true
-            '';
+            export XCURSOR_THEME="catppuccin-mocha-dark-cursors"
+            export XCURSOR_SIZE=24
+            export NODE_OPTIONS=--max-old-space-size=8192
+          ''
+          + lib.optionalString config.pi.programs.vivaldi.enable ''
+            export BROWSER="${pkgs.vivaldi}/bin/vivaldi";
+          ''
+          + ''
+            dconf write /org/gnome/desktop/interface/cursor-theme "'$XCURSOR_THEME'"
+            bindkey "''${key[Up]}" history-substring-search-up
+            bindkey "''${key[Down]}" history-substring-search-down
+            source ${./.p10k.zsh}
+          ''
+          + lib.optionalString config.pi.shell.tools.fastfetch.enable ''
+            ${pkgs.fastfetch}/bin/fastfetch
+          ''
+          + lib.optionalString config.pi.home.work.cli.enable ''
+            ${config.pi.home.work.cli.cmd} --non-interactive status || true
+          '';
         };
 
         zoxide = {

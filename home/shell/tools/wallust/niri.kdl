@@ -1,0 +1,8 @@
+overview { backdrop-color "{{background}}" }
+layout {
+    border {
+        active-color "{{foreground | complementary}}"
+        inactive-color "{{foreground}}"
+        urgent-color "{{color1}}"
+    }
+}

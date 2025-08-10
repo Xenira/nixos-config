@@ -23,6 +23,7 @@ in
       home.work.enable = lib.mkDefault cfg.work.enable;
       programs.enable = lib.mkDefault cfg.desktop.enable;
       hypr.enable = lib.mkDefault cfg.desktop.enable;
+      niri.enable = lib.mkDefault cfg.desktop.enable;
       nvim.enable = lib.mkDefault true;
       git.enable = lib.mkDefault true;
       ssh.enable = lib.mkDefault true;

@@ -113,7 +113,6 @@
         dunst
         hyprshot
         tofi
-        swww
         networkmanagerapplet
 
         xfce.thunar
