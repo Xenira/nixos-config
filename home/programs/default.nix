@@ -14,6 +14,7 @@ in
   };
 
   imports = [
+    ./libreoffice.nix
     ./nheko.nix
     ./peazip.nix
     ./steam.nix
@@ -23,6 +24,7 @@ in
 
   config = lib.mkIf config.pi.programs.enable {
     pi.programs = {
+      libreoffice.enable = lib.mkDefault true;
       nheko.enable = lib.mkDefault config.pi.programs.enable;
       peazip.enable = lib.mkDefault config.pi.programs.enable;
       steam.enable = lib.mkDefault (cfg.enable && !config.pi.work.enable);

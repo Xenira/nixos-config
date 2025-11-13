@@ -13,7 +13,7 @@ in
     enable = lib.mkEnableOption "Enable Hypridle configuration";
     timeout = lib.mkOption {
       type = lib.types.int;
-      default = 300;
+      default = 3000;
       description = "Sets the time in seconds until the screen is locked";
     };
   };

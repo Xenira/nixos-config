@@ -12,7 +12,7 @@
     home-manager.users.ls = {
       programs.nixvim.plugins.wilder = {
         enable = true;
-        modes = [
+        settings.modes = [
           ":"
           "/"
           "?"

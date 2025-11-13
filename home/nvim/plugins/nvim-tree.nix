@@ -13,6 +13,9 @@
       programs.nixvim = {
         plugins.nvim-tree = {
           enable = true;
+          # autoClose = true;
+          openOnSetup = true;
+
           settings = {
             view = {
               width = 30;
@@ -27,13 +30,27 @@
               enable = true;
               showOnDirs = true;
             };
-            openOnSetup = true;
             sortBy = "case_sensitive";
             updateFocusedFile.enable = true;
             modified.enable = true;
             reloadOnBufenter = true;
           };
         };
+        autoCmd = [
+          {
+            event = "BufEnter";
+            nested = true;
+            callback = {
+              __raw = ''
+                function()
+                  if not require("nvim-tree.utils").is_nvim_tree_buf() then
+                    require("nvim-tree.api").tree.close()
+                  end
+                end
+              '';
+            };
+          }
+        ];
         keymaps = [
           {
             mode = [

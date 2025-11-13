@@ -25,8 +25,9 @@ in
       xdg.desktopEntries = {
         "${cmd}-cli" = {
           name = cmd + "-CLI";
-          exec = cmd + " scheme %u";
+          exec = "kitty " + cmd + " scheme %u";
           mimeType = [ ("x-scheme-handler/" + cmd) ];
+          type = "Application";
           noDisplay = true;
           terminal = true;
           startupNotify = false;

@@ -44,6 +44,7 @@
     ./treesitter.nix
     ./trouble.nix
     ./vim-airline.nix
+    ./vimwiki.nix
     ./web-devicons.nix
     ./which-key.nix
     ./wilder.nix
@@ -78,13 +79,14 @@
       neotest.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       nix.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       nvim-surround.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      nvim-tree.enable = lib.mkDefault config.pi.nvim.plugins.enable;
+      nvim-tree.enable = lib.mkDefault true;
       rustaceanvim.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       smear-cursor.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       telescope.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       treesitter.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       trouble.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       vim-airline.enable = lib.mkDefault config.pi.nvim.plugins.enable;
+      vimwiki.enable = lib.mkDefault true;
       web-devicons.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       which-key.enable = lib.mkDefault config.pi.nvim.plugins.enable;
       wilder.enable = lib.mkDefault config.pi.nvim.plugins.enable;

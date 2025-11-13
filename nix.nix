@@ -12,119 +12,105 @@
   ];
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    tmp.useTmpfs = true;
+    tmp = {
+      useTmpfs = true;
+      tmpfsSize = "70%";
+    };
   };
   environment = {
-    systemPackages =
-      with pkgs;
-      let
-        phpm = php82.buildEnv {
-          extraConfig = "memory_limit = 4G";
-          extensions = (
-            { enabled, all }:
-            enabled
-            ++ (with all; [
-              amqp
-              ds
-              redis
-              mailparse
-              xdebug
-              yaml
-            ])
-          );
-        };
-      in
-      [
-        # We always want to have git, as it is needed to rebuild the system.
-        git
+    systemPackages = with pkgs; [
+      (lib.hiPrio uutils-coreutils-noprefix)
 
-        # Old config, needs to be migrated
-        delta
-        convco
-        nmap
-        dive
+      # We always want to have git, as it is needed to rebuild the system.
+      git
+      cacert
 
-        bash
-        jq
-        silver-searcher
-        ripgrep
-        wl-clipboard
-        zip
-        unzip
-        tldr
-        lefthook
-        # jujutsu
-        # lazyjj
+      # Old config, needs to be migrated
+      convco
+      nmap
+      dive
 
-        pkg-config
-        openssl
+      bash
+      jq
+      silver-searcher
+      ripgrep
+      wl-clipboard
+      zip
+      unzip
+      tldr
+      lefthook
+      # jujutsu
+      # lazyjj
 
-        librewolf
-        # firefox
-        chromium
-        bruno
+      pkg-config
+      openssl
 
-        keepassxc
-        obs-studio
-        kdePackages.kdenlive
-        vlc
-        mpv
-        gimp
-        usbimager
-        pavucontrol
+      librewolf
+      # firefox
+      chromium
+      bruno
 
-        rustup
-        zig
-        clang
-        libclang
-        gcc
-        gnumake
-        autoconf
-        bison
-        re2c
+      keepassxc
+      obs-studio
+      kdePackages.kdenlive
+      vlc
+      mpv
+      gimp
+      usbimager
+      pavucontrol
 
-        dart-sass
-        typos
+      rustup
+      zig
+      clang
+      libclang
+      gcc
+      gnumake
+      autoconf
+      bison
+      re2c
 
-        go
-        python3
-        python3Packages.pip
-        prettierd
-        # lua
-        # luaPackages.luarocks
-        lua51Packages.lua
-        lua51Packages.luarocks
-        stylua
+      dart-sass
+      typos
 
-        fastfetch
-        eza
-        uxplay
+      go
+      python3
+      python3Packages.pip
+      prettierd
+      # lua
+      # luaPackages.luarocks
+      lua51Packages.lua
+      lua51Packages.luarocks
+      stylua
 
-        nnn
-        bat
-        fzf
-        zoxide
+      fastfetch
+      eza
+      uxplay
 
-        # gnome keyring system prompt
-        gcr
+      nnn
+      bat
+      fzf
+      zoxide
 
-        # Hyprland
-        hyprpicker
-        dunst
-        hyprshot
-        tofi
-        networkmanagerapplet
+      # gnome keyring system prompt
+      gcr
 
-        xfce.thunar
+      # Hyprland
+      hyprpicker
+      dunst
+      hyprshot
+      tofi
+      networkmanagerapplet
 
-        yubioath-flutter
-        qMasterPassword-wayland
-        showmethekey
+      xfce.thunar
 
-        presenterm
-        mermaid-cli
-        dconf
-      ];
+      yubioath-flutter
+      qMasterPassword-wayland
+      showmethekey
+
+      presenterm
+      mermaid-cli
+      dconf
+    ];
     variables = {
       PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
     };
@@ -233,20 +219,22 @@
 
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
   fonts.fontconfig.defaultFonts = {
     emoji = [ "Noto Color Emoji" ];
   };
   fonts.enableDefaultPackages = true;
 
-  system.activationScripts.binbash = {
-    deps = [
-      "binsh"
-    ];
-    text = ''
-      ln -sf /run/current-system/sw/bin/bash /bin/bash
-    '';
+  system = {
+    activationScripts.binbash = {
+      deps = [
+        "binsh"
+      ];
+      text = ''
+        ln -sf /run/current-system/sw/bin/bash /bin/bash
+      '';
+    };
   };
 
   virtualisation.docker = {
@@ -263,7 +251,6 @@
         ];
       };
     };
-
   };
 
   swapDevices = [

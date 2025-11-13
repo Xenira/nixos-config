@@ -14,6 +14,21 @@
         enable = true;
         extensions = {
           fzy-native.enable = true;
+          file-browser = {
+            enable = true;
+            settings = {
+              collapse_dirs = true;
+              cwd_to_path = true;
+              grouped = true;
+            };
+          };
+          frecency = {
+            enable = true;
+            settings = {
+              max_timestamps = 100;
+              show_scores = true;
+            };
+          };
         };
         settings = {
           defaults = {
@@ -25,10 +40,12 @@
           };
         };
         keymaps = {
-          "<leader>ff" = "find_files";
+          "<leader>ff" = "frecency workspace=CWD";
           "<leader>fg" = "live_grep";
           "<leader>fb" = "buffers";
           "<leader>fh" = "help_tags";
+          "<leader>fp" = "file_browser path=%:p:h select_buffer=true";
+          "<leader>t" = "file_browser path=%:p:h select_buffer=true";
         };
       };
     };

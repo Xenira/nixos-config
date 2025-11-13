@@ -32,9 +32,10 @@ in
                 #!/bin/bash
                 set -e
 
-                IMAGE="$(ls ~/Pictures/Wallpapers | shuf -n 1)"
-                swww img ~/Pictures/Wallpapers/$IMAGE
-                wallust run ~/Pictures/Wallpapers/$IMAGE
+                # IMAGE="$(ls ~/Pictures/Wallpapers | shuf -n 1)"
+                IMAGE="$(unsplash)"
+                wallust run $IMAGE
+                swww img $IMAGE
               ''
             );
           };
@@ -73,6 +74,7 @@ in
           ];
           exec = [
             "pkill waybar; waybar &"
+            "hyprscreen"
           ];
           exec-once = [
             "dunst"

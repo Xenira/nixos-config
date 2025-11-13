@@ -14,10 +14,12 @@ in
   options.pi.work.ssh.enable = lib.mkEnableOption "Enable work-related SSH configuration";
 
   config = lib.mkIf cfg.enable {
+    programs.ssh.package = pkgs.openssh_10_2;
     home-manager.users.ls =
       { lib, ... }:
       {
         programs.ssh = {
+          package = pkgs.openssh_10_2;
           matchBlocks = {
             "${secrets.personal.work.vm}" = lib.hm.dag.entryBefore [ "*.${secrets.personal.work.domain_dev}" ] {
               hostname = secrets.personal.work.vm;

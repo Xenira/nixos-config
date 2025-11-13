@@ -12,13 +12,15 @@
     home-manager.users.ls = {
       programs.nixvim.plugins.diffview = {
         enable = true;
-        view = {
-          default.layout = "diff2_vertical";
-          mergeTool.layout = "diff3_mixed";
-        };
-        filePanel.winConfig = {
-          height = 20;
-          position = "top";
+        settings = {
+          view = {
+            default.layout = "diff2_vertical";
+            mergeTool.layout = "diff3_mixed";
+          };
+          filePanel.winConfig = {
+            height = 20;
+            position = "top";
+          };
         };
       };
     };

@@ -17,8 +17,19 @@
         settings = {
           general = {
             hide_cursor = true;
-            grace = 5;
             immediate_render = true;
+          };
+
+          animations = {
+            enabled = true;
+            fade_in = {
+              duration = 300;
+              bazier = "easeOutQuint";
+            };
+            fade_out = {
+              duration = 300;
+              bazier = "easeOutQuint";
+            };
           };
 
           auth = {

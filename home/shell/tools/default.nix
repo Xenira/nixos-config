@@ -25,8 +25,10 @@ in
     ./nh.nix
     ./ripgrep.nix
     ./sops.nix
+    ./syft.nix
     ./top.nix
     ./traceroute.nix
+    ./yq.nix
   ];
 
   config = lib.mkIf cfg.enable {
@@ -42,8 +44,10 @@ in
       nh.enable = lib.mkDefault cfg.enable;
       ripgrep.enable = lib.mkDefault cfg.enable;
       sops.enable = lib.mkDefault cfg.enable;
+      syft.enable = lib.mkDefault true;
       top.enable = lib.mkDefault cfg.enable;
       traceroute.enable = lib.mkDefault cfg.enable;
+      yq.enable = lib.mkDefault true;
     };
   };
 }

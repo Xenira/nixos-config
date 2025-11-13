@@ -51,6 +51,13 @@ in
 
         settings = {
           "privacy.donottrackheader.enabled" = true;
+          "mail.chat_enabled" = false;
+          "mail.html_compose" = false;
+          "mail.showCondensedAddresses" = false;
+          "mail.thread_without_re" = false;
+          "mail.strict_threading" = true;
+          "mailnews.default_view_flags" = 0;
+          "mailnews.default_news_view_flags" = 0;
         };
       };
 

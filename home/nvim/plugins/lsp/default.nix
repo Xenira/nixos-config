@@ -13,6 +13,7 @@ in
   imports = [
     ./intelephense.nix
     ./nixd.nix
+    ./perlnavigator.nix
     ./sqls.nix
     ./ts-ls.nix
     ./typos-lsp.nix
@@ -26,6 +27,7 @@ in
     pi.nvim.plugins.lsp = {
       intelephense.enable = lib.mkDefault cfg.enable;
       nixd.enable = lib.mkDefault cfg.enable;
+      perlnavigator.enable = lib.mkDefault true;
       sqls.enable = lib.mkDefault cfg.enable;
       ts-ls.enable = lib.mkDefault cfg.enable;
       typos-lsp.enable = lib.mkDefault cfg.enable;
@@ -37,43 +39,42 @@ in
         enable = true;
         inlayHints = true;
 
-        keymaps.extra =
-          [
-            {
-              key = "<leader>dj";
-              action = "vim.diagnostic.goto_next";
-            }
-            {
-              key = "<leader>dk";
-              action = "vim.diagnostic.goto_prev";
-            }
-            {
-              key = "<C-h>";
-              action = "vim.lsp.buf.signature_help";
-            }
-          ]
-          ++ lib.optionals config.pi.nvim.plugins.telescope.enable [
-            {
-              key = "gd";
-              action = "<cmd>Telescope lsp_definitions<cr>";
-            }
-            {
-              key = "gr";
-              action = "<cmd>Telescope lsp_references<cr>";
-            }
-            {
-              key = "gi";
-              action = "<cmd>Telescope lsp_implementations<cr>";
-            }
-            {
-              key = "gt";
-              action = "<cmd>Telescope lsp_type_definitions<cr>";
-            }
-            {
-              key = "<leader>df";
-              action = "<cmd>Telescope diagnostics<cr>";
-            }
-          ];
+        keymaps.extra = [
+          {
+            key = "<leader>dj";
+            action = "vim.diagnostic.goto_next";
+          }
+          {
+            key = "<leader>dk";
+            action = "vim.diagnostic.goto_prev";
+          }
+          {
+            key = "<C-h>";
+            action = "vim.lsp.buf.signature_help";
+          }
+        ]
+        ++ lib.optionals config.pi.nvim.plugins.telescope.enable [
+          {
+            key = "gd";
+            action = "<cmd>Telescope lsp_definitions<cr>";
+          }
+          {
+            key = "gr";
+            action = "<cmd>Telescope lsp_references<cr>";
+          }
+          {
+            key = "gi";
+            action = "<cmd>Telescope lsp_implementations<cr>";
+          }
+          {
+            key = "gt";
+            action = "<cmd>Telescope lsp_type_definitions<cr>";
+          }
+          {
+            key = "<leader>df";
+            action = "<cmd>Telescope diagnostics<cr>";
+          }
+        ];
       };
     };
   };

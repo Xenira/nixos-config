@@ -28,6 +28,7 @@ in
             enabled
             ++ (with all; [
               amqp
+              bz2
               ds
               redis
               mailparse
@@ -42,6 +43,7 @@ in
         phpm
         phpm.packages.composer
         phpm.packages.phpstan
+        phpm.packages.box
         # phpm.packages.php-cs-fixer
         php83Packages.php-cs-fixer
         # php82Extensions.amqp

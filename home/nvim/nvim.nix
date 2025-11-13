@@ -54,6 +54,7 @@ in
     users.users.ls.packages = with pkgs; [
       nixfmt-rfc-style
       asciidoctor-with-extensions
+      sonarlint-ls
     ];
 
     home-manager.users.ls = {
@@ -81,8 +82,8 @@ in
           shortmess.c = true;
           relativenumber = true;
           number = true;
-          tabstop = 2;
-          softtabstop = 2;
+          tabstop = 1;
+          softtabstop = 1;
           expandtab = true;
           smartindent = true;
           autoindent = true;
@@ -102,6 +103,13 @@ in
           enable = true;
           settings = {
             flavour = "mocha";
+          };
+        };
+        colorschemes.nightfox = {
+          enable = false;
+          flavor = "nightfox";
+          settings = {
+            transparent = true;
           };
         };
         diagnostic.settings = {
@@ -170,14 +178,13 @@ in
         extraPlugins = with pkgs.vimPlugins; [
           # lsp-zero-nvim
           formatter-nvim
+          sonarlint-nvim
+          async-vim
           # nvim-lsp-file-operations
           (fromGitHub "main" "chrisgrieser" "nvim-lsp-endhints"
-            "sha256-MgvZqaYbJWmcjIYJM0hCfnIVc+uKE0vk3Ky6PWFYpys="
+            "sha256-nRL3ReIBHuOZn09tjlIL6C2Zlj7oooUTPtrjKPUDTJc="
           )
           (fromGitHub "master" "kenn7" "vim-arsync" "sha256-OQ5XDFyyiAD9Oqxv9+x1hMNH4LscKiLzBapmB4ZvOw4=")
-          (fromGitHub "master" "prabirshrestha" "async.vim"
-            "sha256-YxZdOpV66YxNBACZRPugpk09+h42Sx/kjjDYPnOmqyI="
-          )
           # (fromGitHub "main" "harrisoncramer" "gitlab.nvim" "sha256-kW5Xw9WdGrUcTRiarUc3J1QETJEi32Vr9PixtLAmXU0=")
           # (fromGitHub "main" "harrisoncramer/gitlab-issues.nvim")
           # (fromGitHub "main" "ta-tikoma" "php.easy.nvim" "sha256-O6ju1b7LDnzjmEC7Wz8OUGaw8G0pH37U11Ynn/40JFk=")
@@ -243,6 +250,26 @@ in
               nix = { require("formatter.filetypes.nix").nixfmt },
               -- vue = { prettierd },
               ["*"] = { require("formatter.filetypes.any").remove_trailing_whitespace },
+            },
+          })
+
+          require('sonarlint').setup({
+            server = {
+              cmd = {
+                   "sonarlint-ls",
+                   "-stdio",
+                },
+            },
+            filetypes = {
+              "php",
+              "dockerfile",
+              "javascript",
+              "typescript",
+              "python",
+              "java",
+              "cs",
+              "rust",
+              "cpp",
             },
           })
 
