@@ -18,7 +18,9 @@ in
 
     home-manager.users.ls = {
       home.sessionVariables.NIXOS_OZONE_WL = "1";
-      services.swww.enable = true;
+      services.awww = {
+        enable = true;
+      };
       systemd.user = {
         services.background-img = {
           Unit = {
@@ -34,8 +36,9 @@ in
 
                 # IMAGE="$(ls ~/Pictures/Wallpapers | shuf -n 1)"
                 IMAGE="$(unsplash)"
+                rm -rf /home/ls/.cache/wallust
                 wallust run $IMAGE
-                swww img $IMAGE
+                awww img $IMAGE
               ''
             );
           };
@@ -55,35 +58,80 @@ in
 
       wayland.windowManager.hyprland = {
         enable = true;
-        xwayland.enable = true;
+        configType = "hyprlang";
         systemd = {
           enable = true;
           enableXdgAutostart = true;
         };
         settings = {
-          source = lib.mkIf (config.pi.shell.tools.wallust.enable) "~/.config/wallust/templates/hyprland.conf";
+          source = [
+            "~/.config/hyprscreen/hyprland.conf"
+          ]
+          ++ lib.optionals (config.pi.shell.tools.wallust.enable) [
+            "~/.config/wallust/templates/hyprland.conf"
+          ];
           monitor = [
             ",preferred,auto,auto"
             "eDP-1,preferred,0x0,1"
             "HDMI-A-2,preferred,auto,1,bitdepth,10,cm,hdr,vrr,1"
           ];
-          windowrulev2 = [
-            "float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
-            "opacity 0.75 override 0.75 override,class:.*"
-            "noblur,focus:0,class:.*"
+          workspace = [
+            "w[tv1], gapsout:0, gapsin:0"
+            "f[1], gapsout:0, gapsin:0"
+          ];
+          windowrule = [
+            # smart gaps
+            {
+              name = "Smart Gaps TV";
+              "match:float" = 0;
+              "match:workspace" = "w[tv1]";
+              rounding = 0;
+              border_size = 0;
+            }
+            {
+              name = "Smart Gaps Maximized";
+              "match:float" = 0;
+              "match:workspace" = "f[1]";
+              rounding = 0;
+              border_size = 0;
+            }
+            # "float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
+            {
+              name = "Float Polkit";
+              "match:class" = "^(org.kde.polkit-kde-authentication-agent-1)$";
+              float = "on";
+              focus_on_activate = "on";
+            }
+            {
+              name = "Opacity";
+              "match:class" = ".*";
+              opacity = "0.75 0.75";
+            }
+            {
+              name = "No Blur on Focus";
+              "match:focus" = 0;
+              "match:class" = ".*";
+              no_blur = "on";
+            }
+            {
+              name = "No Opacity on floating";
+              "match:float" = 1;
+              "match:class" = ".*";
+              opacity = "1.0 1.0";
+            }
           ];
           exec = [
-            "pkill waybar; waybar &"
-            "hyprscreen"
+            # "pkill waybar; waybar &"
+            # "hyprscreen"
           ];
           exec-once = [
-            "dunst"
+            "qs -d"
             "hyprpaper"
             "nm-applet --indicator & disown"
           ]
-          ++ lib.optionals cfg.programs.vivaldi.enable [
-            "vivaldi"
-          ]
+          # ++ lib.optionals cfg.programs.vivaldi.enable [
+          #   "vivaldi"
+          # ]
           ++ lib.optionals cfg.programs.nheko.enable [
             "nheko"
           ]
@@ -94,9 +142,9 @@ in
             "thunderbird"
           ];
           input = {
-            kb_layout = "gb,gb";
+            kb_layout = "gb,us";
             kb_variant = ",colemak_dh";
-            kb_options = "compose:ralt";
+            kb_options = "grp:win_space_toggle";
 
             follow_mouse = 1;
             left_handed = 1;
@@ -120,6 +168,7 @@ in
               size = 8;
               passes = 3;
               ignore_opacity = true;
+              # new_optimizations = false;
             };
 
             shadow = {
@@ -127,7 +176,7 @@ in
               offset = "0 0";
               range = 30;
               render_power = 2;
-              ignore_window = 1;
+              # ignore_window = 1; # FIXME: Investigate removal
               color = lib.mkIf (!config.pi.shell.tools.wallust.enable) "0xFFAD0DED";
               color_inactive = lib.mkIf (!config.pi.shell.tools.wallust.enable) "0xFF3292F3";
             };
@@ -153,7 +202,7 @@ in
             "$mod CTRL, Q, exit"
             "$mod, V, togglefloating"
             "$mod, T, fullscreen"
-            "$mod, L, exec, hyprlock --immediate"
+            "$mod, L, exec, hyprlock --grace 0"
             "$mod CTRL, R, exec, hyprctl reload"
             "$mod, A, exec, tofi-drun --drun-launch=true"
             "$mod, E, exec, thunar"

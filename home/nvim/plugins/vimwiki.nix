@@ -14,16 +14,16 @@
         vimwiki = {
           enable = true;
         };
-        cmp-vimwiki-tags = lib.mkIf config.pi.nvim.plugins.cmp.enable {
-          enable = true;
-        };
-        cmp = lib.mkIf config.pi.nvim.plugins.cmp.enable {
-          settings.sources = [
-            {
-              name = "vimwiki-tags";
-            }
-          ];
-        };
+        # cmp-vimwiki-tags = lib.mkIf config.pi.nvim.plugins.cmp.enable {
+        #   enable = true;
+        # };
+        # cmp = lib.mkIf config.pi.nvim.plugins.cmp.enable {
+        #   settings.sources = [
+        #     {
+        #       name = "vimwiki-tags";
+        #     }
+        #   ];
+        # };
       };
     };
   };

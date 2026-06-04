@@ -11,8 +11,6 @@
   };
 
   imports = [
-    ./lsp
-    ./luasnip
     ./actions-preview.nix
     ./auto-session.nix
     ./barbecue.nix
@@ -20,6 +18,7 @@
     ./cmp.nix
     ./comment-box.nix
     ./comment.nix
+    ./conform-nvim.nix
     ./copilot-lua.nix
     ./coverage.nix
     ./ctrl-p.nix
@@ -30,14 +29,17 @@
     ./gitblame.nix
     ./gitsigns.nix
     ./leap.nix
+    ./lsp
     ./lsp-signature.nix
     ./lspkind.nix
+    ./luasnip
     ./markdown-preview.nix
     ./neogit.nix
     ./neotest.nix
     ./nix.nix
     ./nvim-surround.nix
     ./nvim-tree.nix
+    ./overseer.nix
     ./rustaceanvim.nix
     ./smear-cursor.nix
     ./telescope.nix
@@ -52,44 +54,45 @@
 
   config = lib.mkIf config.pi.nvim.plugins.enable {
     pi.nvim.plugins = {
-      lsp.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      luasnip.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-
-      actions-preview.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      auto-session.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      barbecue.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      ccc.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      cmp.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      comment-box.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      comment.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      copilot-lua.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      coverage.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      ctrl-p.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      cursorline.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      dap-ui.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      dap.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      diffview.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      gitblame.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      gitsigns.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      leap.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      lsp-signature.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      lspkind.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      markdown-preview.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      neogit.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      neotest.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      nix.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      nvim-surround.enable = lib.mkDefault config.pi.nvim.plugins.enable;
+      actions-preview.enable = lib.mkDefault true;
+      auto-session.enable = lib.mkDefault true;
+      barbecue.enable = lib.mkDefault true;
+      ccc.enable = lib.mkDefault true;
+      cmp.enable = lib.mkDefault true;
+      comment-box.enable = lib.mkDefault true;
+      comment.enable = lib.mkDefault true;
+      conform-nvim.enable = lib.mkDefault true;
+      copilot-lua.enable = lib.mkDefault true;
+      coverage.enable = lib.mkDefault true;
+      ctrl-p.enable = lib.mkDefault true;
+      cursorline.enable = lib.mkDefault true;
+      dap-ui.enable = lib.mkDefault true;
+      dap.enable = lib.mkDefault true;
+      diffview.enable = lib.mkDefault true;
+      gitblame.enable = lib.mkDefault true;
+      gitsigns.enable = lib.mkDefault true;
+      leap.enable = lib.mkDefault true;
+      lsp-signature.enable = lib.mkDefault true;
+      lsp.enable = lib.mkDefault true;
+      lspkind.enable = lib.mkDefault true;
+      luasnip.enable = lib.mkDefault true;
+      markdown-preview.enable = lib.mkDefault true;
+      neogit.enable = lib.mkDefault true;
+      neotest.enable = lib.mkDefault true;
+      nix.enable = lib.mkDefault true;
+      nvim-surround.enable = lib.mkDefault true;
       nvim-tree.enable = lib.mkDefault true;
-      rustaceanvim.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      smear-cursor.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      telescope.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      treesitter.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      trouble.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      vim-airline.enable = lib.mkDefault config.pi.nvim.plugins.enable;
+      overseer.enable = lib.mkDefault true;
+      rustaceanvim.enable = lib.mkDefault true;
+      smear-cursor.enable = lib.mkDefault true;
+      telescope.enable = lib.mkDefault true;
+      treesitter.enable = lib.mkDefault true;
+      trouble.enable = lib.mkDefault true;
+      vim-airline.enable = lib.mkDefault true;
       vimwiki.enable = lib.mkDefault true;
-      web-devicons.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      which-key.enable = lib.mkDefault config.pi.nvim.plugins.enable;
-      wilder.enable = lib.mkDefault config.pi.nvim.plugins.enable;
+      web-devicons.enable = lib.mkDefault true;
+      which-key.enable = lib.mkDefault true;
+      wilder.enable = lib.mkDefault true;
     };
   };
 }

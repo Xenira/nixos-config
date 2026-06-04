@@ -17,19 +17,22 @@ in
 
   config = {
     pi = {
-      work.enable = lib.mkDefault true;
-      server.enable = lib.mkDefault false;
       desktop.enable = lib.mkDefault (!cfg.server.enable);
+      dev.enable = lib.mkDefault true;
+      font.enable = lib.mkDefault cfg.desktop.enable;
+      git.enable = lib.mkDefault true;
       home.work.enable = lib.mkDefault cfg.work.enable;
-      programs.enable = lib.mkDefault cfg.desktop.enable;
       hypr.enable = lib.mkDefault cfg.desktop.enable;
       niri.enable = lib.mkDefault cfg.desktop.enable;
       nvim.enable = lib.mkDefault true;
-      git.enable = lib.mkDefault true;
-      ssh.enable = lib.mkDefault true;
-      dev.enable = lib.mkDefault true;
-      xdg.enable = lib.mkDefault true;
+      programs.enable = lib.mkDefault cfg.desktop.enable;
+      qs.enable = lib.mkDefault cfg.desktop.enable;
+      server.enable = lib.mkDefault false;
       shell.enable = lib.mkDefault true;
+      ssh.enable = lib.mkDefault true;
+      work.enable = lib.mkDefault true;
+      xdg.enable = lib.mkDefault true;
+      # hypr.waybar.enable = lib.mkDefault (cfg.desktop.enable && !cfg.qs.enable);
 
       # Custom Global Overrides
     };

@@ -7,7 +7,7 @@
 
 {
   options.pi.programs.libreoffice = {
-    enable = lib.mkEnableOption "Enable Pear configuration";
+    enable = lib.mkEnableOption "Enable libreoffice configuration";
   };
 
   config = lib.mkIf config.pi.programs.libreoffice.enable {

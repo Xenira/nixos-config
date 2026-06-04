@@ -35,7 +35,7 @@ in
           animate_images_on_hover = true;
           automatically_share_keys_with_trusted_users = false;
           avatar_circles = true;
-          bubbles_enabled = false;
+          bubbles_enabled = true;
           decrypt_notifications = true;
           decrypt_sidebar = true;
           desktop_notifications = true;

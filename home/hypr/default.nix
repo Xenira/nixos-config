@@ -22,7 +22,7 @@
       hyprland.enable = config.pi.hypr.enable;
       hyprlock.enable = lib.mkDefault config.pi.hypr.enable;
       hypridle.enable = lib.mkDefault config.pi.hypr.enable;
-      waybar.enable = lib.mkDefault config.pi.hypr.enable;
+      waybar.enable = lib.mkDefault false;
     };
   };
 }

@@ -52,9 +52,11 @@ in
     pi.nvim.plugins.enable = true;
 
     users.users.ls.packages = with pkgs; [
-      nixfmt-rfc-style
+      nixfmt
       asciidoctor-with-extensions
-      sonarlint-ls
+      kdePackages.qtdeclarative
+      phpantom-lsp
+      # sonarlint-ls
     ];
 
     home-manager.users.ls = {
@@ -177,12 +179,12 @@ in
 
         extraPlugins = with pkgs.vimPlugins; [
           # lsp-zero-nvim
-          formatter-nvim
+          # formatter-nvim
           sonarlint-nvim
           async-vim
           # nvim-lsp-file-operations
           (fromGitHub "main" "chrisgrieser" "nvim-lsp-endhints"
-            "sha256-nRL3ReIBHuOZn09tjlIL6C2Zlj7oooUTPtrjKPUDTJc="
+            "sha256-RstC7vzBNkGtd7XohTQA6PrIc2etzFOPK/NBuC9eGrU="
           )
           (fromGitHub "master" "kenn7" "vim-arsync" "sha256-OQ5XDFyyiAD9Oqxv9+x1hMNH4LscKiLzBapmB4ZvOw4=")
           # (fromGitHub "main" "harrisoncramer" "gitlab.nvim" "sha256-kW5Xw9WdGrUcTRiarUc3J1QETJEi32Vr9PixtLAmXU0=")
@@ -195,9 +197,13 @@ in
         };
         autoCmd = [
           {
-            command = "FormatWrite";
-            event = "BufWritePost";
+            event = "BufWritePre";
             group = "FormatAutoGroup";
+            pattern = "";
+            callback.__raw = ''
+              function(args)
+                require("conform").format({ bufnr = args.buf })
+              end'';
           }
           {
             command = "lua vim.diagnostic.open_float(nil, { focusable = false })";
@@ -205,73 +211,13 @@ in
           }
         ];
         extraConfigLua = ''
-          local util = require("formatter.util")
-          local defaults = require("formatter.defaults")
-
-          local prettierd = function()
-            return {
-              exe = 'PRETTIERD_DEFAULT_CONFIG="~/.config/.prettierrc.json" prettierd',
-              args = { util.escape_path(util.get_current_buffer_file_path()) },
-              stdin = true,
-            }
-          end
-
-          -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
-          require("formatter").setup({
-            -- Enable or disable logging
-            logging = false,
-            -- Set the log level
-            log_level = vim.log.levels.DEBUG,
-            -- All formatter configurations are opt-in
-            filetype = {
-              php = { require("formatter.filetypes.php").php_cs_fixer },
-              js = { prettierd },
-              typescript = { prettierd },
-              json = { require("formatter.filetypes.json").prettierd },
-              scss = { require("formatter.filetypes.css").prettierd },
-              yaml = { require("formatter.filetypes.yaml").prettierd },
-              -- twig = { function ()
-              -- return defaults.prettier("html")
-              -- end
-              -- },
-              -- html = { require("formatter.filetypes.html").tidy },
-              rust = {
-                function()
-                  return {
-                    exe = "rustfmt",
-                    args = {
-                      "--edition=2018",
-                    },
-                    stdin = true,
-                  }
-                end,
-              },
-              lua = { require("formatter.filetypes.lua").stylua },
-              nix = { require("formatter.filetypes.nix").nixfmt },
-              -- vue = { prettierd },
-              ["*"] = { require("formatter.filetypes.any").remove_trailing_whitespace },
-            },
-          })
-
-          require('sonarlint').setup({
-            server = {
-              cmd = {
-                   "sonarlint-ls",
-                   "-stdio",
-                },
-            },
-            filetypes = {
-              "php",
-              "dockerfile",
-              "javascript",
-              "typescript",
-              "python",
-              "java",
-              "cs",
-              "rust",
-              "cpp",
-            },
-          })
+          -- require('lspconfig').phpantom.setup({})
+          vim.lsp.config['phpantom'] = {
+            cmd = { 'phpantom_lsp' },
+            filetypes = { 'php' },
+            root_markers = { 'composer.json', '.git' },
+          }
+          vim.lsp.enable('phpantom')
 
           vim.treesitter.query.set("php", "highlights", [[; extends
             (member_call_expression

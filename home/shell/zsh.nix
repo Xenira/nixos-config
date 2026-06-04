@@ -57,19 +57,26 @@ in
 
             nano = "nvim";
             nani = "nvim .";
+            nania = "nvim .";
             vim = "nvim";
             vi = "nvim";
+            nn = "nvim ~/.config/nix";
 
             update = updateCmd;
 
             ll = "eza -laag --hyperlink --icons --git --time-style relative --group-directories-first";
 
             amend = "git commit --amend --no-edit && git push --force-with-lease";
+            amenda = "git commit --amend --no-edit && git push --force-with-lease";
 
             sshk = lib.mkIf config.pi.shell.kitty.enable "kitty +kitten ssh";
             use_nix = ''echo "use nix" >> .envrc'';
             use_flake = ''echo "use flake" >> .envrc'';
             flashbang = "cat /sys/class/backlight/amdgpu_bl1/max_brightness > /sys/class/backlight/amdgpu_bl1/brightness";
+            ts = "task_stack";
+            tsa = "task_stack add";
+            tsp = "task_stack pop";
+            tst = "task_stack top";
           };
 
           zplug = {

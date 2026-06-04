@@ -34,20 +34,31 @@ in
               mailparse
               xdebug
               yaml
+              xsl
             ])
           );
           embedSupport = true;
+        };
+        phpstanm = pkgs.phpstan.override {
+          php = phpm;
+        };
+        php_version_int = lib.toInt cfg.version;
+        phpunitm = pkgs.phpunit.override {
+          php = if php_version_int <= 83 then pkgs.php else phpm;
         };
       in
       [
         phpm
         phpm.packages.composer
-        phpm.packages.phpstan
+        phpstanm
+        phpm.packages.psalm
+        phpm.packages.php-cs-fixer
+        # phpunit needs PHP 8.3+
+        phpunitm
+        # phpm.packages.php-unit
         phpm.packages.box
-        # phpm.packages.php-cs-fixer
-        php83Packages.php-cs-fixer
-        # php82Extensions.amqp
-        # php82Extensions.redis
+        # phpunit.
+        # php83Packages.php-cs-fixer
         # phpactor
       ];
   };

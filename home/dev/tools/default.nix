@@ -14,6 +14,7 @@ in
   imports = [
     ./php-semver-checker.nix
     ./scc.nix
+    ./tilt.nix
     ./valgrind.nix
   ];
 
@@ -21,7 +22,8 @@ in
     pi.dev.tools = {
       php-semver-checker.enable = lib.mkDefault true;
       scc.enable = lib.mkDefault true;
-      valgrind.enable = lib.mkDefault cfg.enable;
+      tilt.enable = lib.mkDefault true;
+      valgrind.enable = lib.mkDefault true;
     };
   };
 }

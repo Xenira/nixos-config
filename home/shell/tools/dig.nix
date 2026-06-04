@@ -10,7 +10,7 @@ let
 in
 {
   options.pi.shell.tools.dig = {
-    enable = lib.mkEnableOption "Enable Falstfetch tool";
+    enable = lib.mkEnableOption "Enable dig tool";
   };
 
   config = lib.mkIf cfg.enable {

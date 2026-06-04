@@ -3,14 +3,16 @@
 {
   imports = [
     ./dev
+    ./fonts.nix
+    ./git.nix
     ./hypr
     ./niri
-    ./work
-    ./programs
     ./nvim
+    ./programs
+    ./qs
     ./shell
-    ./git.nix
     ./ssh.nix
+    ./work
     ./xdg.nix
   ];
 

@@ -19,28 +19,27 @@ in
         cmp = {
           enable = true;
           settings = {
-            sources =
-              [
-                { name = "nvim_lsp"; }
-                {
-                  name = "path";
-                  group_index = 2;
-                }
-                {
-                  name = "buffer";
-                  group_index = 2;
-                }
-                {
-                  name = "clippy";
-                  group_index = 2;
-                }
-              ]
-              ++ lib.optionals luasnip.enable [
-                {
-                  name = "luasnip";
-                  group_index = 2;
-                }
-              ];
+            sources = [
+              { name = "nvim_lsp"; }
+              {
+                name = "path";
+                group_index = 2;
+              }
+              {
+                name = "buffer";
+                group_index = 2;
+              }
+              {
+                name = "clippy";
+                group_index = 2;
+              }
+            ]
+            ++ lib.optionals luasnip.enable [
+              {
+                name = "luasnip";
+                group_index = 2;
+              }
+            ];
             mapping = {
               "<C-Space>" = "cmp.mapping.complete()";
               "<C-e>" = "cmp.mapping.abort()";
@@ -69,7 +68,7 @@ in
         cmp-omni.enable = true;
         cmp-path.enable = true;
         cmp-nvim-lsp.enable = true;
-        cmp-nvim-lsp-document-symbol.enable = true;
+        cmp-nvim-lsp-document-symbol.enable = false;
         cmp-nvim-lsp-signature-help.enable = true;
         cmp-dictionary.enable = true;
         cmp_luasnip.enable = lib.mkDefault luasnip.enable;

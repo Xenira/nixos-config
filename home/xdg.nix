@@ -26,6 +26,7 @@
           desktop = null;
           publicShare = null;
           templates = null;
+          setSessionVariables = true;
         };
         autostart.readOnly = true;
       };

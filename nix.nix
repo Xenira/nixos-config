@@ -29,6 +29,7 @@
       convco
       nmap
       dive
+      orca
 
       bash
       jq
@@ -45,17 +46,14 @@
       pkg-config
       openssl
 
-      librewolf
+      # librewolf
       # firefox
       chromium
-      bruno
 
       keepassxc
       obs-studio
-      kdePackages.kdenlive
       vlc
       mpv
-      gimp
       usbimager
       pavucontrol
 
@@ -96,17 +94,16 @@
 
       # Hyprland
       hyprpicker
-      dunst
+      # dunst
       hyprshot
       tofi
       networkmanagerapplet
 
-      xfce.thunar
-
       yubioath-flutter
-      qMasterPassword-wayland
+      qmasterpassword-wayland
       showmethekey
 
+      pam_u2f
       presenterm
       mermaid-cli
       dconf
@@ -142,6 +139,7 @@
     polkit.enable = true;
   };
 
+  users.groups.plugdev = { };
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ls = {
     isNormalUser = true;
@@ -151,8 +149,15 @@
       "docker"
       "dialout"
       "audio"
+      "plugdev"
     ];
     packages = with pkgs; [ ];
+  };
+
+  home-manager.users.ls = {
+    dconf.settings."org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
   };
 
   # Enable networking
@@ -217,15 +222,6 @@
     enableSSHSupport = true;
   };
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.fira-code
-    noto-fonts-color-emoji
-  ];
-  fonts.fontconfig.defaultFonts = {
-    emoji = [ "Noto Color Emoji" ];
-  };
-  fonts.enableDefaultPackages = true;
-
   system = {
     activationScripts.binbash = {
       deps = [
@@ -256,7 +252,7 @@
   swapDevices = [
     {
       device = "/var/lib/swapfile";
-      size = 16 * 1024;
+      size = 32 * 1024;
     }
   ];
 
